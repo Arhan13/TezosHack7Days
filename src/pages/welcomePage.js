@@ -1,10 +1,10 @@
 import React from "react";
 import DashboardLayout from "../layouts/DashBoardLayout";
 
-export default function customerPage() {
+export default function welcomePage() {
   return (
     <DashboardLayout>
-      <h1>I am Customer Page</h1>
+      <h1>I am Welcome Page</h1>
     </DashboardLayout>
   );
 }
