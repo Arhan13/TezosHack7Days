@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 
+import { InMemorySigner } from "@taquito/signer";
 import { TezosToolkit } from "@taquito/taquito";
 import { ThanosWallet } from "@thanos-wallet/dapp";
 
@@ -36,13 +37,35 @@ const FarmerPage = () => {
   const [income, setIncome] = useState("");
   const [supplierRate, setSupplierRate] = useState("");
   const [requestFromSupplier, setRequestFromSupplier] = useState("");
+  const [wallet, setWallet] = useState(null);
   // const [toggler, setToggler] = useState(false);
 
-  useEffect(async () => {
-    const tezos = new TezosToolkit("https://testnet-tezos.giganode.io");
-    setTezos(tezos);
-    console.log(tezos);
-  }, []);
+  // useEffect(async () => {
+  //   const tezos = new TezosToolkit("https://testnet-tezos.giganode.io");
+  //   setTezos(tezos);
+  //   // Tezos.setProvider({
+  //   //   signer: await InMemorySigner.fromSecretKey(
+  //   //     "edsk2rKA8YEExg9Zo2qNPiQnnYheF1DhqjLVmfKdxiFfu5GyGRZRnb"
+  //   //   ),
+  //   // });
+  //   console.log(tezos);
+  // }, []);
+
+  useEffect(() => {
+    ThanosWallet.isAvailable()
+      .then(async () => {
+        const WWallet = new ThanosWallet("Storage Example");
+        console.log(WWallet);
+        setWallet(WWallet);
+        const TezosI = await wallet.toTezos();
+        setTezos(TezosI);
+        await wallet.connect("edo2net").then(() => {
+          Tezos.setWalletProvider(wallet);
+          console.log(`Your address: ${wallet.pkh}`);
+        });
+      })
+      .catch((err) => console.log(err));
+  });
 
   //Set Crop Available
   useEffect(() => {
@@ -267,31 +290,16 @@ const FarmerPage = () => {
   const handleEvent = async (e, func, params) => {
     e.preventDefault();
     try {
-      const avail = await ThanosWallet.isAvailable();
-      if (!avail) {
-        throw new Error("Thanos Wallet is not installed");
-      }
-
-      const wallet = new ThanosWallet("Storage Example");
-      await wallet.connect("edo2net");
-
-      Tezos.setWalletProvider(wallet);
-
-      // ThanosWallet.isAvailable()
-      //   .then(async () => {
-      //     const wallet = new ThanosWallet("Storage Example");
-      //     const Tezos = await wallet.toTezos();
-      //     setTezos(Tezos);
-      //     console.log(Tezos);
-      //     wallet.connect("edonet").then(() => {
-      //       Tezos.setWalletProvider(wallet);
-      //       //println(`Your address: ${wallet.pkh}`);
-      //     });
-      //   })
-      //   .catch((err) => console.log(err));
-
-      // const wal = await connectWallet();
-      // Tezos.setWalletProvider(wal);
+      ThanosWallet.isAvailable()
+        .then(() => {
+          const WWallet = new ThanosWallet("Storage Example");
+          setWallet(WWallet);
+          wallet.connect("edo2net").then(() => {
+            Tezos.setWalletProvider(wallet);
+            console.log(`Your address: ${wallet.pkh}`);
+          });
+        })
+        .catch((err) => console.log(err));
 
       setLoader(true);
       await func(Tezos, params, setStatus);
@@ -323,30 +331,78 @@ const FarmerPage = () => {
   ) => {
     e.preventDefault();
     try {
-      const avail = await ThanosWallet.isAvailable();
-      if (!avail) {
-        throw new Error("Thanos Wallet is not installed");
-      }
+      // const avail = await ThanosWallet.isAvailable();
+      // if (!avail) {
+      //   throw new Error("Thanos Wallet is not installed");
+      // }
 
-      const wallet = new ThanosWallet("Storage Example");
-      await wallet.connect("edo2net");
+      // const wallet = new ThanosWallet("Storage Example");
+      // await wallet.connect("edo2net");
+      // console.log(wallet);
+      // const tezos = await wallet.toTezos();
+      // console.log(tezos);
+      // setTezos(tezos);
 
-      Tezos.setWalletProvider(wallet);
+      // Tezos.setWalletProvider(wallet);
 
-      setLoader(true);
+      ThanosWallet.isAvailable()
+        .then(async () => {
+          const WWallet = new ThanosWallet("Storage Example");
+          console.log(WWallet);
+          setWallet(WWallet);
+          const TezosI = await wallet.toTezos();
+          setTezos(TezosI);
+          await wallet.connect("edo2net").then(() => {
+            Tezos.setWalletProvider(wallet);
+            console.log(`Your address: ${wallet.pkh}`);
+          });
+        })
+        .catch((err) => console.log(err));
+
+      // ThanosWallet.isAvailable()
+      //   .then(() => {
+      //     const wallet = new ThanosWallet("Storage Example");
+      //     wallet.connect("edo2net").then(() => {
+      //       Tezos.setWalletProvider(wallet);
+      //       console.log(`Your address: ${wallet.pkh}`);
+      //     });
+      //   })
+      //   .catch((err) => console.log(err));
+
       // await update_crops_available(Tezos, params, setStatus);
-      const testContract = await Tezos.contract.at(
-        "KT1DTddm2dzkUVh17SzSrD2AZCUFf5SyxAMd"
-      );
-      const operation = await testContract.methods
-        .update_crops_available(
-          params.cropAvailable,
-          params.rateOfCrop,
-          params.address
+      console.log(Tezos);
+      Tezos.contract
+        .at("KT1DTddm2dzkUVh17SzSrD2AZCUFf5SyxAMd")
+        .then((contract) => {
+          return contract.methods
+            .update_crops_available(
+              params.cropAvailable,
+              params.rateOfCrop,
+              params.address
+            )
+            .send();
+        })
+        .then((op) => {
+          return op.confirmation(3).then(() => op.hash);
+        })
+        .then((hash) =>
+          console.log(`Operation injected: https://edo.tzstats.com/${hash}`)
         )
-        .send();
-      console.log(operation);
-      await operation.confirmation();
+        .catch((error) =>
+          console.log(`Error: ${JSON.stringify(error, null, 2)}`)
+        );
+      // const testContract = await Tezos.contract.at(
+      //   "KT1DTddm2dzkUVh17SzSrD2AZCUFf5SyxAMd"
+      // );
+      // const operation = await testContract.methods
+      //   .update_crops_available(
+      //     params.cropAvailable,
+      //     params.rateOfCrop,
+      //     params.address
+      //   )
+      //   .send();
+      // console.log(operation);
+      // await operation.confirmation();
       setLoader(false);
       // await getCropsAvailable(Tezos)
       //   .then(setCropsAvail)

@@ -1683,10 +1683,22 @@
   dependencies:
     "xhr2-cookies" "^1.1.0"
 
+"@taquito/http-utils@^9.0.0":
+  "integrity" "sha512-+O43QglDaWx/9jPR1SCLRlLFEBoyrO07ZZYXv1siIWwXY8bFVz8tssyUfezKp61zgMDJcENVhWLz5R5PC08O6A=="
+  "resolved" "https://registry.npmjs.org/@taquito/http-utils/-/http-utils-9.0.0.tgz"
+  "version" "9.0.0"
+  dependencies:
+    "xhr2-cookies" "^1.1.0"
+
 "@taquito/michel-codec@^8.1.1":
   "integrity" "sha512-Clp6LfFVxXuLIUTdMi0XK7lnPBhrj9p8XIismf1Gobg/nxqMCW5idWAprl4f3ickpOzlNLm8UHjCs4aUee1GiQ=="
   "resolved" "https://registry.npmjs.org/@taquito/michel-codec/-/michel-codec-8.1.1.tgz"
   "version" "8.1.1"
+
+"@taquito/michel-codec@^9.0.0":
+  "integrity" "sha512-3eM1x2QjxijSew4evVO9t1jM2igcWJpjt7jyGQ9ayeS34w4vHZm5lAWPTJHtmwEv0l6R5lJF4dRpBlpYt5A+Hg=="
+  "resolved" "https://registry.npmjs.org/@taquito/michel-codec/-/michel-codec-9.0.0.tgz"
+  "version" "9.0.0"
 
 "@taquito/michelson-encoder@^8.1.1":
   "integrity" "sha512-5axhQr82wkM4J1YHf1nQ8jx7gp45kJFk6D/CcfNeIWHSrGFxQCzHCYkXhYOViCnmhsgJgKrNfqB8UyPeNfFsVg=="
@@ -1698,6 +1710,16 @@
     "bignumber.js" "^9.0.1"
     "fast-json-stable-stringify" "^2.1.0"
 
+"@taquito/michelson-encoder@^9.0.0":
+  "integrity" "sha512-+N3fyrsoA/Exhy3UJwG8bazm4Bpw4NdyKoL3FaWhQnbr4BUkI+zgq/GBkX7rF730GBxb2B9WCf5SvwOG5mo8Aw=="
+  "resolved" "https://registry.npmjs.org/@taquito/michelson-encoder/-/michelson-encoder-9.0.0.tgz"
+  "version" "9.0.0"
+  dependencies:
+    "@taquito/rpc" "^9.0.0"
+    "@taquito/utils" "^9.0.0"
+    "bignumber.js" "^9.0.1"
+    "fast-json-stable-stringify" "^2.1.0"
+
 "@taquito/rpc@^8.1.1":
   "integrity" "sha512-NS1aoVy+co5xCe41wM67PEMZHt88RtxpsGPvsYs0TO1sJN6JFgwkZYE/ZQULRHPb6JXNxY/KOCVnYahFM+a8pg=="
   "resolved" "https://registry.npmjs.org/@taquito/rpc/-/rpc-8.1.1.tgz"
@@ -1706,6 +1728,29 @@
     "@taquito/http-utils" "^8.1.0"
     "bignumber.js" "^9.0.1"
     "lodash" "^4.17.20"
+
+"@taquito/rpc@^9.0.0":
+  "integrity" "sha512-0ma2tB/8bDDp0qhIIPBjnCrXISbC5yiTTuS8r1OQYjrBXRfTCtb/GbAeT5COsCzycHEdaolrTnsKF8M7N69tcQ=="
+  "resolved" "https://registry.npmjs.org/@taquito/rpc/-/rpc-9.0.0.tgz"
+  "version" "9.0.0"
+  dependencies:
+    "@taquito/http-utils" "^9.0.0"
+    "bignumber.js" "^9.0.1"
+    "lodash" "^4.17.20"
+
+"@taquito/signer@^9.0.0":
+  "integrity" "sha512-4bxUyJH9CuFnse0Iqqr1zaj3aGwGoNjOSxMyE7YzVdK4x5SKNyied/gXGLeS1F7VLrzv4jDzNp382D7SKTO54Q=="
+  "resolved" "https://registry.npmjs.org/@taquito/signer/-/signer-9.0.0.tgz"
+  "version" "9.0.0"
+  dependencies:
+    "@taquito/taquito" "^9.0.0"
+    "@taquito/utils" "^9.0.0"
+    "bignumber.js" "^9.0.1"
+    "bip39" "^3.0.2"
+    "elliptic" "^6.5.4"
+    "libsodium-wrappers" "^0.7.8"
+    "pbkdf2" "^3.1.1"
+    "typedarray-to-buffer" "^3.1.5"
 
 "@taquito/taquito@^7.0.0 || ^7.0.0-beta || ^8.0.0-beta", "@taquito/taquito@^8.1.1":
   "integrity" "sha512-A8aOYaaAxiwcdGhftdg8lgiX1ZivtrLoqvhWow+JGfvAyAsVabAvckpEgEHgBUvmFClSFVbuM/TOAarnHUfd3A=="
@@ -1721,10 +1766,33 @@
     "rx-sandbox" "^1.0.3"
     "rxjs" "^6.6.3"
 
+"@taquito/taquito@^9.0.0":
+  "integrity" "sha512-SfKQRfnImRzm6QxnyIgBKfZwIAUUU6Jyj64TO6r230808rJIpYob/Kh6ndv/KAKJ5BtLyFlobvaTTZUElS1+ug=="
+  "resolved" "https://registry.npmjs.org/@taquito/taquito/-/taquito-9.0.0.tgz"
+  "version" "9.0.0"
+  dependencies:
+    "@taquito/http-utils" "^9.0.0"
+    "@taquito/michel-codec" "^9.0.0"
+    "@taquito/michelson-encoder" "^9.0.0"
+    "@taquito/rpc" "^9.0.0"
+    "@taquito/utils" "^9.0.0"
+    "bignumber.js" "^9.0.1"
+    "rx-sandbox" "^1.0.3"
+    "rxjs" "^6.6.3"
+
 "@taquito/utils@^8.1.0":
   "integrity" "sha512-ZsHYxEZ+voTjnFZM/iQXeCDUSa2eH5n9PMSX0DNq85hN6S5Q0ZP/4CGznOf+RJj7p1GF2cbKf9wUJrOMFdN+0g=="
   "resolved" "https://registry.npmjs.org/@taquito/utils/-/utils-8.1.1.tgz"
   "version" "8.1.1"
+  dependencies:
+    "blakejs" "^1.1.0"
+    "bs58check" "^2.1.2"
+    "buffer" "^5.6.0"
+
+"@taquito/utils@^9.0.0":
+  "integrity" "sha512-Ymod1EyVhNokA0gUxxrKPKBIHxM6/tLPsGrH2akYpEOTV+lz250BBElXdqpxXdsCndXcoskZwVaVfGx9R0h6rw=="
+  "resolved" "https://registry.npmjs.org/@taquito/utils/-/utils-9.0.0.tgz"
+  "version" "9.0.0"
   dependencies:
     "blakejs" "^1.1.0"
     "bs58check" "^2.1.2"
@@ -1907,6 +1975,11 @@
   "integrity" "sha512-vFHy/ezP5qI0rFgJ7aQnjDXwAMrG0KqqIH7tQG5PPv3BWBayOPIQNBjVc/P6hhdZfMx51REc6tfDNXHUio893g=="
   "resolved" "https://registry.npmjs.org/@types/node/-/node-14.14.31.tgz"
   "version" "14.14.31"
+
+"@types/node@11.11.6":
+  "integrity" "sha512-Exw4yUWMBXM3X+8oqzJNRqZSwUAaS4+7NdvHqQuFi/d+synz++xmX3QIf+BFqneW8N31R8Ky+sikfZUXq07ggQ=="
+  "resolved" "https://registry.npmjs.org/@types/node/-/node-11.11.6.tgz"
+  "version" "11.11.6"
 
 "@types/normalize-package-data@^2.4.0":
   "integrity" "sha512-f5j5b/Gf71L+dbqxIpQ4Z2WlmI/mPJ0fOkGGmFgtb6sAu97EPczzbS3/tJKxmcYDj55OX6ssqwDAWOHIYDRDGA=="
@@ -2967,6 +3040,16 @@
   "integrity" "sha512-jDctJ/IVQbZoJykoeHbhXpOlNBqGNcwXJKJog42E5HDPUwQTSdjCHdihjj0DlnheQ7blbT6dHOafNAiS8ooQKA=="
   "resolved" "https://registry.npmjs.org/binary-extensions/-/binary-extensions-2.2.0.tgz"
   "version" "2.2.0"
+
+"bip39@^3.0.2":
+  "integrity" "sha512-YZKQlb752TrUWqHWj7XAwCSjYEgGAk+/Aas3V7NyjQeZYsztO8JnQUaCWhcnL4T+jL8nvB8typ2jRPzTlgugNw=="
+  "resolved" "https://registry.npmjs.org/bip39/-/bip39-3.0.4.tgz"
+  "version" "3.0.4"
+  dependencies:
+    "@types/node" "11.11.6"
+    "create-hash" "^1.1.0"
+    "pbkdf2" "^3.0.9"
+    "randombytes" "^2.0.1"
 
 "blakejs@^1.1.0":
   "integrity" "sha1-ad+S75U6qIylGjLfarHFShVfx6U="
@@ -4579,7 +4662,7 @@
   "resolved" "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.3.671.tgz"
   "version" "1.3.671"
 
-"elliptic@^6.5.3":
+"elliptic@^6.5.3", "elliptic@^6.5.4":
   "integrity" "sha512-iLhC6ULemrljPZb+QutR5TQGB+pdW6KGD5RSegS+8sorOZT+rdQFbsQFJgvN3eRqNALqJer4oQ16YvJHlU8hzQ=="
   "resolved" "https://registry.npmjs.org/elliptic/-/elliptic-6.5.4.tgz"
   "version" "6.5.4"
@@ -7250,6 +7333,18 @@
     "prelude-ls" "~1.1.2"
     "type-check" "~0.3.2"
 
+"libsodium-wrappers@^0.7.8":
+  "integrity" "sha512-9HaAeBGk1nKTRFRHkt7nzxqCvnkWTjn1pdjKgcUnZxj0FyOP4CnhgFhMdrFfgNsukijBGyBLpP2m2uKT1vuWhQ=="
+  "resolved" "https://registry.npmjs.org/libsodium-wrappers/-/libsodium-wrappers-0.7.9.tgz"
+  "version" "0.7.9"
+  dependencies:
+    "libsodium" "^0.7.0"
+
+"libsodium@^0.7.0":
+  "integrity" "sha512-gfeADtR4D/CM0oRUviKBViMGXZDgnFdMKMzHsvBdqLBHd9ySi6EtYnmuhHVDDYgYpAO8eU8hEY+F8vIUAPh08A=="
+  "resolved" "https://registry.npmjs.org/libsodium/-/libsodium-0.7.9.tgz"
+  "version" "0.7.9"
+
 "lines-and-columns@^1.1.6":
   "integrity" "sha1-HADHQ7QzzQpOgHWPe2SldEDZ/wA="
   "resolved" "https://registry.npmjs.org/lines-and-columns/-/lines-and-columns-1.1.6.tgz"
@@ -8412,7 +8507,7 @@
   "resolved" "https://registry.npmjs.org/path-type/-/path-type-4.0.0.tgz"
   "version" "4.0.0"
 
-"pbkdf2@^3.0.3":
+"pbkdf2@^3.0.3", "pbkdf2@^3.0.9", "pbkdf2@^3.1.1":
   "integrity" "sha512-4Ejy1OPxi9f2tt1rRV7Go7zmfDQ+ZectEQz3VGUQhgq62HtIRPDyG/JtnwIxs6x3uNMwo2V7q1fMvKjb+Tnpqg=="
   "resolved" "https://registry.npmjs.org/pbkdf2/-/pbkdf2-3.1.1.tgz"
   "version" "3.1.1"
