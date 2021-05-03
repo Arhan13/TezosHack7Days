@@ -16,9 +16,7 @@ export const request_crops_from_supplier = (
     })
     .then((op) => {
       setStatus(`Awaiting for transaction to be confirmed.....`);
-      return op.confirmation(1).then(() => {
-        op.opHash;
-      });
+      return op.confirmation(1).then(() => op.hash);
     })
     .then((hash) => {
       setStatus(

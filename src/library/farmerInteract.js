@@ -16,9 +16,7 @@ export const update_crops_available = (
     })
     .then((op) => {
       setStatus(`Awaiting for the transaction to be confirmed.....`);
-      return op.confirmation(1).then(() => {
-        op.opHash;
-      });
+      return op.confirmation(1).then(() => op.hash);
     })
     .then((hash) => {
       setStatus(
@@ -41,9 +39,7 @@ export const transfer_crops_to_supplier = (
     })
     .then((op) => {
       setStatus(`Awaiting for the transaction to be confirmed.....`);
-      return op.confirmation(1).then(() => {
-        op.opHash;
-      });
+      return op.confirmation(1).then(() => op.hash);
     })
     .then((hash) => {
       setStatus(

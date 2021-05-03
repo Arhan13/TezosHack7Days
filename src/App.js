@@ -2,10 +2,10 @@ import "./App.css";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 //Pages
-import welcomePage from "./pages/welcomePage";
-import customerPage from "./pages/customerPage";
-import farmerPage from "./pages/farmerPage";
-import supplierPage from "./pages/supplierPage";
+import welcomePage from "./pages/WelcomePage";
+import customerPage from "./pages/CustomerPage";
+import farmerPage from "./pages/FarmerPage";
+import supplierPage from "./pages/SupplierPage";
 
 function App() {
   return (

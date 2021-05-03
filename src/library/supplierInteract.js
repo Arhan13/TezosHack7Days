@@ -17,9 +17,7 @@ export const crop_request_to_farmers = (
     })
     .then((op) => {
       setStatus(`Awaiting for the transaction to be confirmed.....`);
-      return op.confirmation(1).then(() => {
-        op.opHash;
-      });
+      return op.confirmation(1).then(() => op.hash);
     })
     .then((hash) => {
       setStatus(
@@ -40,9 +38,7 @@ export const transfer_to_customer = (
     })
     .then((op) => {
       setStatus(`Awaiting for the transaction to be confirmed.....`);
-      return op.confirmation(1).then(() => {
-        op.opHash;
-      });
+      return op.confirmation(1).then(() => op.hash);
     })
     .then((hash) => {
       setStatus(
@@ -104,5 +100,16 @@ export const getMsp = (Tezos) => {
     })
     .then((storage) => {
       return storage.farmers_rate.toSting();
+    });
+};
+
+export const getCustomerRequirement = (Tezos) => {
+  Tezos.wallet
+    .at(config.contractAddr)
+    .then((contract) => {
+      contract.storage();
+    })
+    .then((storage) => {
+      return storage.customer_requirement.toSting();
     });
 };
