@@ -1,6 +1,6 @@
 {
     "name": "Storage Example",
-    "network": "edonet",
-    "rpc": "https://edonet.smartpy.io/",
+    "network": "edo2net",
+    "rpc": "https://edonet.smartpy.io",
     "contractAddr": "KT1KS99kZk5WGagQXFSdN7tjgKkAKj1kAr9C"
 }
