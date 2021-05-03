@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
 
+import { TezosToolkit } from "@taquito/taquito";
+import { ThanosWallet } from "@thanos-wallet/dapp";
+
 import { LikeOutlined } from "@ant-design/icons";
 import { Row, Col, Statistic } from "antd";
 import Layout from "antd/lib/layout/layout";
@@ -35,23 +38,157 @@ const FarmerPage = () => {
   const [requestFromSupplier, setRequestFromSupplier] = useState("");
   // const [toggler, setToggler] = useState(false);
 
-  useEffect(() => {
-    console.log("run");
-    setup().then(setTezos).catch(console.error);
+  useEffect(async () => {
+    const tezos = new TezosToolkit("https://testnet-tezos.giganode.io");
+    setTezos(tezos);
+    console.log(tezos);
   }, []);
 
-  // //Set Crop Available
+  //Set Crop Available
+  useEffect(() => {
+    if (Tezos === undefined) {
+      return;
+    }
+    Tezos.contract
+      .at("KT1DTddm2dzkUVh17SzSrD2AZCUFf5SyxAMd")
+      .then((contract) => contract.storage())
+      .then((storage) => {
+        setCropsAvail(storage.crops_available.toString());
+      })
+      .then(() => setLoader(false))
+      .catch(console.error);
+    const timer = setInterval(() => {
+      Tezos.contract
+        .at("KT1DTddm2dzkUVh17SzSrD2AZCUFf5SyxAMd")
+        .then((contract) => contract.storage())
+        .then((storage) => {
+          setCropsAvail(storage.crops_available.toString());
+        })
+        .catch(console.error);
+    }, 60000);
+    return () => {
+      clearInterval(timer);
+    };
+  }, [Tezos]);
+
+  //Set MSP
+  useEffect(() => {
+    if (Tezos === undefined) {
+      return;
+    }
+    Tezos.contract
+      .at("KT1DTddm2dzkUVh17SzSrD2AZCUFf5SyxAMd")
+      .then((contract) => contract.storage())
+      .then((storage) => {
+        setMsp(storage.farmer_rate.toString());
+      })
+      .then(() => setLoader(false))
+      .catch(console.error);
+    const timer = setInterval(() => {
+      Tezos.contract
+        .at("KT1DTddm2dzkUVh17SzSrD2AZCUFf5SyxAMd")
+        .then((contract) => contract.storage())
+        .then((storage) => {
+          setMsp(storage.farmer_rate.toString());
+        })
+        .catch(console.error);
+    }, 60000);
+    return () => {
+      clearInterval(timer);
+    };
+  }, [Tezos]);
+
+  //Set Income
+  useEffect(() => {
+    if (Tezos === undefined) {
+      return;
+    }
+    Tezos.contract
+      .at("KT1DTddm2dzkUVh17SzSrD2AZCUFf5SyxAMd")
+      .then((contract) => contract.storage())
+      .then((storage) => {
+        setIncome(storage.income.toString());
+      })
+      .then(() => setLoader(false))
+      .catch(console.error);
+    const timer = setInterval(() => {
+      Tezos.contract
+        .at("KT1DTddm2dzkUVh17SzSrD2AZCUFf5SyxAMd")
+        .then((contract) => contract.storage())
+        .then((storage) => {
+          setIncome(storage.income.toString());
+        })
+        .catch(console.error);
+    }, 60000);
+    return () => {
+      clearInterval(timer);
+    };
+  }, [Tezos]);
+
+  //Set Supplier Rate
+  useEffect(() => {
+    if (Tezos === undefined) {
+      return;
+    }
+    Tezos.contract
+      .at("KT1DTddm2dzkUVh17SzSrD2AZCUFf5SyxAMd")
+      .then((contract) => contract.storage())
+      .then((storage) => {
+        setSupplierRate(storage.supplier_rate.toString());
+      })
+      .then(() => setLoader(false))
+      .catch(console.error);
+    const timer = setInterval(() => {
+      Tezos.contract
+        .at("KT1DTddm2dzkUVh17SzSrD2AZCUFf5SyxAMd")
+        .then((contract) => contract.storage())
+        .then((storage) => {
+          setSupplierRate(storage.supplier_rate.toString());
+        })
+        .catch(console.error);
+    }, 60000);
+    return () => {
+      clearInterval(timer);
+    };
+  }, [Tezos]);
+
+  //Set get request from supplier
+  useEffect(() => {
+    if (Tezos === undefined) {
+      return;
+    }
+    Tezos.contract
+      .at("KT1DTddm2dzkUVh17SzSrD2AZCUFf5SyxAMd")
+      .then((contract) => contract.storage())
+      .then((storage) => {
+        setRequestFromSupplier(storage.request_from_supplier.toString());
+      })
+      .then(() => setLoader(false))
+      .catch(console.error);
+    const timer = setInterval(() => {
+      Tezos.contract
+        .at("KT1DTddm2dzkUVh17SzSrD2AZCUFf5SyxAMd")
+        .then((contract) => contract.storage())
+        .then((storage) => {
+          setRequestFromSupplier(storage.request_from_supplier.toString());
+        })
+        .catch(console.error);
+    }, 60000);
+    return () => {
+      clearInterval(timer);
+    };
+  }, [Tezos]);
+
   // useEffect(() => {
   //   if (Tezos === undefined) return;
   //   getCropsAvailable(Tezos)
   //     .then(setCropsAvail)
-  //     .then(() => {
-  //       setLoader(false);
-  //     })
+  //     .then(() => setLoader(false))
   //     .catch(console.error);
   //   const timer = setInterval(() => {
   //     getCropsAvailable(Tezos).then(setCropsAvail).catch(console.error);
   //   }, 60000);
+
   //   return () => {
   //     clearInterval(timer);
   //   };
@@ -108,7 +245,7 @@ const FarmerPage = () => {
   //   };
   // }, [Tezos]);
 
-  // //Set get request from supplier
+  //Set get request from supplier
   // useEffect(() => {
   //   if (Tezos === undefined) return;
   //   getRequestFromSupplier(Tezos)
@@ -127,53 +264,105 @@ const FarmerPage = () => {
   //   };
   // }, [Tezos]);
 
-  // useEffect(() => {
-  //   effect;
-  //   return () => {
-  //     cleanup;
-  //   };
-  // }, [input]);
-
-  // useEffect(() => {
-  //   if (Tezos === undefined) return;
-  //   getValue(Tezos)
-  //     .then(setValue)
-  //     .then(() => setLoader(false))
-  //     .catch(console.error);
-  //   const timer = setInterval(() => {
-  //     getValue(Tezos).then(setValue).catch(console.error);
-  //   }, 60000);
-
-  //   return () => {
-  //     clearInterval(timer);
-  //   };
-  // }, [Tezos]);
-
   const handleEvent = async (e, func, params) => {
     e.preventDefault();
     try {
-      const wal = await connectWallet();
-      Tezos.setWalletProvider(wal);
+      const avail = await ThanosWallet.isAvailable();
+      if (!avail) {
+        throw new Error("Thanos Wallet is not installed");
+      }
+
+      const wallet = new ThanosWallet("Storage Example");
+      await wallet.connect("edo2net");
+
+      Tezos.setWalletProvider(wallet);
+
+      // ThanosWallet.isAvailable()
+      //   .then(async () => {
+      //     const wallet = new ThanosWallet("Storage Example");
+      //     const Tezos = await wallet.toTezos();
+      //     setTezos(Tezos);
+      //     console.log(Tezos);
+      //     wallet.connect("edonet").then(() => {
+      //       Tezos.setWalletProvider(wallet);
+      //       //println(`Your address: ${wallet.pkh}`);
+      //     });
+      //   })
+      //   .catch((err) => console.log(err));
+
+      // const wal = await connectWallet();
+      // Tezos.setWalletProvider(wal);
+
       setLoader(true);
       await func(Tezos, params, setStatus);
-      // await getValue(Tezos)
-      //   .then(setValue)
+      // await getCropsAvailable(Tezos)
+      //   .then(setCropsAvail)
       //   .then(() => setLoader(false));
-      await getCropsAvailable(Tezos)
-        .then(setCropsAvail)
-        .then(() => setLoader(false));
-      await getMsp(Tezos)
-        .then(setMsp)
-        .then(() => setLoader(false));
-      await getIncome(Tezos)
-        .then(setIncome)
-        .then(() => setLoader(false));
-      await getSupplierRate(Tezos)
-        .then(setSupplierRate)
-        .then(() => setLoader(false));
-      await getRequestFromSupplier(Tezos)
-        .then(setRequestFromSupplier)
-        .then(() => setLoader(false));
+      // await getMsp(Tezos)
+      //   .then(setMsp)
+      //   .then(() => setLoader(false));
+      // await getIncome(Tezos)
+      //   .then(setIncome)
+      //   .then(() => setLoader(false));
+      // await getSupplierRate(Tezos)
+      //   .then(setSupplierRate)
+      //   .then(() => setLoader(false));
+      // await getRequestFromSupplier(Tezos)
+      //   .then(setRequestFromSupplier)
+      //   .then(() => setLoader(false));
+    } catch (err) {
+      console.error(err);
+      alert("Couldn't connect wallet");
+    }
+  };
+
+  const handleEventUpdateCropsAvail = async (
+    e,
+    update_crops_available,
+    params
+  ) => {
+    e.preventDefault();
+    try {
+      const avail = await ThanosWallet.isAvailable();
+      if (!avail) {
+        throw new Error("Thanos Wallet is not installed");
+      }
+
+      const wallet = new ThanosWallet("Storage Example");
+      await wallet.connect("edo2net");
+
+      Tezos.setWalletProvider(wallet);
+
+      setLoader(true);
+      // await update_crops_available(Tezos, params, setStatus);
+      const testContract = await Tezos.contract.at(
+        "KT1DTddm2dzkUVh17SzSrD2AZCUFf5SyxAMd"
+      );
+      const operation = await testContract.methods
+        .update_crops_available(
+          params.cropAvailable,
+          params.rateOfCrop,
+          params.address
+        )
+        .send();
+      console.log(operation);
+      await operation.confirmation();
+      setLoader(false);
+      // await getCropsAvailable(Tezos)
+      //   .then(setCropsAvail)
+      //   .then(() => setLoader(false));
+      // await getMsp(Tezos)
+      //   .then(setMsp)
+      //   .then(() => setLoader(false));
+      // await getIncome(Tezos)
+      //   .then(setIncome)
+      //   .then(() => setLoader(false));
+      // await getSupplierRate(Tezos)
+      //   .then(setSupplierRate)
+      //   .then(() => setLoader(false));
+      // await getRequestFromSupplier(Tezos)
+      //   .then(setRequestFromSupplier)
+      //   .then(() => setLoader(false));
     } catch (err) {
       console.error(err);
       alert("Couldn't connect wallet");
@@ -230,10 +419,10 @@ const FarmerPage = () => {
           >
             <form
               onSubmit={async (e) => {
-                await handleEvent(e, update_crops_available, {
-                  address: e.target.address.value,
+                await handleEventUpdateCropsAvail(e, update_crops_available, {
                   cropAvailable: e.target.cropAvailable.value,
                   rateOfCrop: e.target.rateOfCrop.value,
+                  address: e.target.address.value,
                 });
               }}
               style={{

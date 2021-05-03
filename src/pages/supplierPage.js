@@ -7,21 +7,7 @@ import { Header } from "antd/lib/layout/layout";
 
 import DashboardLayout from "../layouts/DashBoardLayout";
 
-//CSS
-//import "../style.css";
-
-//Functions
-
 import { connectWallet, setup } from "../library/supplierConnect";
-// import {
-//   transfer_crops_to_supplier,
-//   update_crops_available,
-//   getIncome,
-//   getMsp,
-//   getCropsAvailable,
-//   getSupplierRate,
-//   getRequestFromSupplier,
-// } from "../library/farmerInteract";
 
 import {
   crop_request_to_farmers,

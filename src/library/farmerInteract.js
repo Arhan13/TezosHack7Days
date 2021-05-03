@@ -1,4 +1,7 @@
+import { TezosToolkit } from "@taquito/taquito";
 import * as config from "./farmerConfig.json";
+
+const Tezos = new TezosToolkit("https://edonet.smartpy.io");
 
 //update_crops_available, transfer_crops_to_supplier
 
@@ -7,22 +10,11 @@ export const update_crops_available = (
   { cropAvailable, rateOfCrop, address },
   setStatus
 ) => {
-  Tezos.wallet
-    .at(config.contractAddr)
-    .then((contract) => {
-      return contract.methods
-        .update_crops_available(cropAvailable, rateOfCrop, address)
-        .send();
-    })
-    .then((op) => {
-      setStatus(`Awaiting for the transaction to be confirmed.....`);
-      return op.confirmation(1).then(() => op.hash);
-    })
-    .then((hash) => {
-      setStatus(
-        `Operation injected: <a target="#" href="https://edo2net.tzkt.io/${hash}">Check Here</a>`
-      );
-    });
+  Tezos.contract.at(config.contractAddr).then((contract) => {
+    return contract.methods
+      .update_crops_available(cropAvailable, rateOfCrop, address)
+      .send();
+  });
 };
 
 export const transfer_crops_to_supplier = (
@@ -30,7 +22,7 @@ export const transfer_crops_to_supplier = (
   { address, amtOfCrop },
   setStatus
 ) => {
-  Tezos.wallet
+  Tezos.contract
     .at(config.contractAddr)
     .then((contract) => {
       return contract.methods
@@ -48,19 +40,19 @@ export const transfer_crops_to_supplier = (
     });
 };
 
+//Done
 export const getCropsAvailable = (Tezos) => {
-  Tezos.wallet
+  console.log(Tezos);
+  Tezos.contract
     .at(config.contractAddr)
-    .then((contract) => {
-      contract.storage();
-    })
+    .then((contract) => contract.storage())
     .then((storage) => {
-      return storage.crops_available.toSting();
+      return storage.crops_available;
     });
 };
 
 export const getSupplierRate = (Tezos) => {
-  Tezos.wallet
+  Tezos.contract
     .at(config.contractAddr)
     .then((contract) => {
       contract.storage();
@@ -71,7 +63,7 @@ export const getSupplierRate = (Tezos) => {
 };
 
 export const getIncome = (Tezos) => {
-  Tezos.wallet
+  Tezos.contract
     .at(config.contractAddr)
     .then((contract) => {
       contract.storage();
@@ -82,7 +74,7 @@ export const getIncome = (Tezos) => {
 };
 
 export const getRequestFromSupplier = (Tezos) => {
-  Tezos.wallet
+  Tezos.contract
     .at(config.contractAddr)
     .then((contract) => {
       contract.storage();
@@ -92,8 +84,9 @@ export const getRequestFromSupplier = (Tezos) => {
     });
 };
 
+//Done
 export const getMsp = (Tezos) => {
-  Tezos.wallet
+  Tezos.contract
     .at(config.contractAddr)
     .then((contract) => {
       contract.storage();

@@ -3,7 +3,7 @@ import { ThanosWallet } from "@thanos-wallet/dapp";
 import * as config from "./customerConfig.json";
 
 export const setup = async () => {
-  const Tezos = new TezosToolkit("https://edonet.smartpy.io");
+  const Tezos = new TezosToolkit(config.rpc);
   return Tezos;
 };
 
@@ -14,6 +14,6 @@ export const connectWallet = async () => {
   }
   console.log(config.name);
   const wallet = new ThanosWallet(config.name);
-  await wallet.connect("edo2net");
+  await wallet.connect(config.network);
   return wallet;
 };

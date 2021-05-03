@@ -1,6 +1,6 @@
 {
     "name": "Storage Example",
     "network": "edo2net",
-    "rpc": "https://edonet.smartpy.io",
+    "rpc": "https://testnet-tezos.giganode.io",
     "contractAddr": "KT1KbeMFA3fksoVdH21QVTCkANEYUxtGNJzQ"
 }
